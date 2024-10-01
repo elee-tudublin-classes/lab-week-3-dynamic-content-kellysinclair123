@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<!-- Load common head content, including the favicon link -->
+    {% include "./partials/head.html" ignore missing with context %}
+    <title>Home Page</title>
+</head>
+
+<body>
+    <!-- include navbar from partials -->
+    {% include "./partials/nav.html" ignore missing with context %}
+
+    <h1>Dynamic content Examples</h1>
+    <div class="timeBlock">
+        <h3>Server Time:</h3>
+        <h4 id="servertime">{{serverTime}}</h4>
+    </div>
+
+    <div class="timeBlock">
+        <h3>Browser Time:</h3>
+        <h4 id="browserTime"><script>function getTime() {
+            let now = new Date()
+        
+            // return object with date and time in required format
+            return {
+                date: now.toLocaleDateString('en-ie'),
+                time: now.toLocaleTimeString('en-ie')
+            }
+        }
+        
+        const browserTime = document.getElementById('browserTime');
+        
+        // update browser time
+        function updateBrowserTime() {
+            const now = getTime();
+            browserTime.innerText = `${now.date} ${now.time}`;
+            // recursive call to update every second
+            setTimeout(updateBrowserTime, 1000);
+        }
+        
+        updateBrowserTime();</script></h4>
+    </div>
+ 
+    <!-- Load common CSS and JS -->
+    {% include "./partials/dependencies.html" ignore missing with context %}
+</body>
+
+</html>
